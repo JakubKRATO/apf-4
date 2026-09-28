@@ -1,10 +1,15 @@
+using ContactBook;
 using ContactBook.Interface;
 using ContactBook.Service;
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddSqlite<AppDbContext>(connectionString);
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IContactService, ContactService>();
+builder.Services.AddDbContext<AppDbContext>();
 
 var app = builder.Build();
 
