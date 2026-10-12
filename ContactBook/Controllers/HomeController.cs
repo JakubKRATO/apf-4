@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using ContactBook.Models;
-using ContactBook.Service;
 using ContactBook.Interface;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,5 +32,41 @@ namespace ContactBook.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+        public IActionResult AddContact()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddContact(Contact contact)
+        {
+            _contactService.Add(contact);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Contact contact)
+        {
+            if (ModelState.IsValid)
+            {
+                _contactService.Update(contact);
+                return RedirectToAction("Index");
+            }
+            return View(contact);
+        }
+
+        
+        public IActionResult Detail(int id)
+        {
+            var contact = _contactService.GetById(id);
+            if (contact == null)
+            {
+                return View("Index");
+            }
+            return View(contact);
+        }
+
     }
 }
