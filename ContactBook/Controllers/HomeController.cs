@@ -34,13 +34,18 @@ namespace ContactBook.Controllers
         }
 
 
-        public IActionResult AddContact()
+        public IActionResult Add()
         {
             return View();
         }
+        public IActionResult Edit(int id)
+        {
+            var contact = _contactService.GetById(id);
+            return View(contact);
+        }
 
         [HttpPost]
-        public IActionResult AddContact(Contact contact)
+        public IActionResult Add(Contact contact)
         {
             _contactService.Add(contact);
             return RedirectToAction("Index");
@@ -49,12 +54,8 @@ namespace ContactBook.Controllers
         [HttpPost]
         public IActionResult Edit(Contact contact)
         {
-            if (ModelState.IsValid)
-            {
-                _contactService.Update(contact);
-                return RedirectToAction("Index");
-            }
-            return View(contact);
+             _contactService.Update(contact);
+             return RedirectToAction("Index");
         }
 
         
@@ -66,6 +67,12 @@ namespace ContactBook.Controllers
                 return View("Index");
             }
             return View(contact);
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var contact = _contactService.Delete(id);
+            return RedirectToAction("Index");
         }
 
     }

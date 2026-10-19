@@ -3,16 +3,15 @@
 }
 @model List<Contact>
 
-<a href="Add" style="font: 5rem">+</a>
+<a href="/Home/Add" style="font: 5rem">+</a>
 
 <div class="text-center">
     @foreach (var contact in Model)
     {
         <div class="card">
-        <a href="detail/@contact.Id" style="color: red">@contact.Id</a>
+        <a href="/Home/Detail/@contact.Id" style="color: red">@contact.Id</a>
             <h1 style="color: brown">@contact.FirstName @contact.LastName</h1>
         <p>@contact.Email</p>
         </div>
-
     }
 </div>

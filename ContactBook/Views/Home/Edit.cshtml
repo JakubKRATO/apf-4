@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Edit pageee";
+}
+@model Contact
+<form action="/Home/Edit" method="post">
+    <input type="type" name="FirstName" value="@Model.FirstName" />
+    <input type="type" name="LastName" value="@Model.LastName" />
+    <input type="type" name="Email" value="@Model.Email" />
+    <button type="submit">Edit</button>
+</form>
